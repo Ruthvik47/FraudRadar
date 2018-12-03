@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/bottomsheet"
+    android:layout_width="match_parent"
+
+    android:layout_height="match_parent">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/tool_bar"/>
+
+
+    <LinearLayout
+        android:id="@+id/nameLayout"
+        android:layout_below="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="4dp"
+        android:layout_weight="10">
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.5"
+            android:layout_gravity="start|center"
+            android:src="@drawable/ic_person"/>
+        <EditText
+            android:id="@+id/fraudname"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="8.5"
+            android:hint="Fraud name"
+            android:gravity="start|center"
+            android:inputType="text"/>
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/walletLayout"
+        android:layout_below="@id/nameLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_weight="10"
+        android:layout_marginTop="12dp">
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.5"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_person"/>
+        <EditText
+            android:id="@+id/bankname"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="8.5"
+            android:hint="Bank name"
+            android:gravity="start|center"
+            android:inputType="text"/>
+
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/accountLayout"
+        android:layout_below="@id/walletLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_weight="10"
+        android:layout_marginTop="12dp">
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.5"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_person"/>
+        <EditText
+            android:id="@+id/accountnumber"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="8.5"
+            android:hint="Account number"
+            android:gravity="start|center"
+            android:inputType="number"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ifsclayout"
+        android:layout_below="@id/accountLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_weight="10"
+        android:layout_marginTop="12dp">
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.5"
+            android:layout_gravity="center" />
+        <EditText
+            android:id="@+id/ifscnumber"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="8.5"
+            android:hint="IFSC code"
+            android:gravity="start|center"
+            android:inputType="number"/>
+
+    </LinearLayout>
+
+
+
+    <LinearLayout
+        android:id="@+id/transactionLayout"
+        android:layout_below="@+id/ifsclayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_weight="10"
+        android:layout_marginTop="12dp">
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.5"
+            android:layout_gravity="center" />
+        <EditText
+            android:id="@+id/transactionid"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="8.5"
+            android:hint="Transaction ID"
+            android:gravity="start|center"
+            android:inputType="text"/>
+
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/description"
+        android:layout_below="@id/transactionLayout"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_margin="16dp"
+        android:scrollbars="vertical"
+        android:background="@drawable/loginedittext"
+        android:hint="Description ..."
+        android:gravity="start"
+        android:inputType="text"/>
+
+
+    <RelativeLayout
+        android:id="@+id/startLayout"
+        android:layout_below="@id/description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp">
+        <CheckBox
+            android:id="@+id/anonymous"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:onClick="oncheckboxClicked"
+            />
+        <TextView
+            android:layout_toEndOf="@id/anonymous"
+            android:gravity="center"
+            android:layout_centerVertical="true"
+            android:text="Add post Anonymously"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+    </RelativeLayout>
+</ScrollView>

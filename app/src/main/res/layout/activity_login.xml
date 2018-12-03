@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activities.LoginActivity"
+    android:layout_marginStart="40dp"
+    android:layout_marginEnd="40dp"
+    android:layout_marginBottom="80dp">
+
+    <TextView
+        android:id="@+id/enternum"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Enter your mobile number"
+        android:textSize="18sp"
+        android:gravity="center"
+        android:layout_above="@id/phoneLayout"
+        android:layout_marginBottom="60dp"
+        android:textStyle="bold"
+        android:fontFamily="sans-serif-thin"/>
+
+    <TextView
+        android:id="@+id/otpnumber"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Enter the code sent to /"
+        android:textSize="18sp"
+        android:gravity="center"
+        android:layout_above="@id/otpcode"
+        android:visibility="gone"
+        android:layout_marginBottom="60dp"
+        android:textStyle="bold"
+        android:fontFamily="sans-serif-thin"/>
+    <EditText
+        android:id="@+id/otpcode"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:maxLength="6"
+        android:layout_centerInParent="true"
+        android:autofillHints="Phone number"
+        android:visibility="gone"
+        tools:targetApi="o"
+        android:background="@drawable/loginedittext"
+        android:inputType="phone" />
+
+
+
+<LinearLayout
+    android:id="@+id/phoneLayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:visibility="visible"
+    android:weightSum="10"
+    android:layout_centerInParent="true">
+
+    <EditText
+        android:id="@+id/countrycode"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="2"
+        android:autofillHints="Phone number"
+        tools:targetApi="o"
+        android:background="@drawable/loginedittext"
+        android:inputType="phone"
+        android:text="+91"
+        android:layout_marginEnd="8dp"
+        />
+    <EditText
+        android:id="@+id/phonenumber"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="8"
+        android:autofillHints="Phone number"
+        tools:targetApi="o"
+        android:background="@drawable/loginedittext"
+        android:inputType="phone" />
+
+
+
+</LinearLayout>
+
+
+    <TextView
+        android:id="@+id/verifytext"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Tap on next to verify your account with your phone number"
+        android:layout_below="@id/phoneLayout"
+        android:layout_marginTop="30dp"
+        android:gravity="center"/>
+
+
+    <Button
+        android:id="@+id/next"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:textColor="#ffffff"
+        android:background="@color/colorPrimary"
+        android:text="Next"/>
+    <ProgressBar
+        android:id="@+id/progressbar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:visibility="gone"/>
+
+
+</RelativeLayout>

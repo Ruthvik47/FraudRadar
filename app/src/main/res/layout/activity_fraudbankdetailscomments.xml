@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activities.Fraudbankdetailscomments">
+    <include layout="@layout/tool_bar"
+        android:id="@+id/toolbar"/>
+
+    <EditText
+        android:id="@+id/comment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="4dp"
+        android:layout_below="@id/startLayout"
+        android:hint="Write a complaint .. "
+        android:gravity="start"/>
+    <RelativeLayout
+        android:id="@+id/startLayout"
+        android:layout_below="@id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="start"
+        android:padding="8dp">
+        <CheckBox
+            android:id="@+id/anonymous"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+
+            android:onClick="oncheckboxClicked"
+            />
+        <TextView
+            android:layout_toEndOf="@id/anonymous"
+            android:gravity="center"
+            android:layout_centerVertical="true"
+            android:textSize="18sp"
+            android:text="Add post Anonymously"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+
+</RelativeLayout>

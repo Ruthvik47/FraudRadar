@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "428755913873",
+    "firebase_url": "https://bankfraud-cbf11.firebaseio.com",
+    "project_id": "bankfraud-cbf11",
+    "storage_bucket": "bankfraud-cbf11.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:428755913873:android:f9a5e5ff72bd8258",
+        "android_client_info": {
+          "package_name": "com.whatever.ruthvikreddy.bankfraud"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "428755913873-j1ukme43j92kiet7mgjl63v9oc5vb6ue.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.whatever.ruthvikreddy.bankfraud",
+            "certificate_hash": "42f62f2e65704a4666ede7de48f2117157a428b8"
+          }
+        },
+        {
+          "client_id": "428755913873-090bntkual2nkilqjobu3psdhp8kblg6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAWew7X1keDfGpGQBlZSHYhdB49cOyDRD4"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "428755913873-090bntkual2nkilqjobu3psdhp8kblg6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activities.DisplayBankDetails">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <android.support.v7.widget.CardView
+            android:id="@+id/imageLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="12dp">
+                <ImageView
+                    android:id="@+id/back"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_action_arrow_back_ios"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginStart="4dp"/>
+
+
+
+
+        <ImageView
+            android:id="@+id/fraudimage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_red_account_circle"
+            android:layout_marginTop="8dp"
+            />
+        <TextView
+            android:id="@+id/fraudname"
+            android:layout_below="@id/fraudimage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Fraud name"
+            android:textColor="@color/black"
+            android:gravity="center"
+            android:textSize="26sp"
+            />
+
+                <TextView
+                    android:id="@+id/spam"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_below="@id/fraudname"
+                    android:layout_marginTop="4dp"
+                    android:textColor="#D75A4A"
+                    android:textSize="14sp"/>
+            </RelativeLayout>
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/bankdetails"
+            android:layout_below="@+id/imageLayout"
+            android:layout_marginTop="4dp"
+            >
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="8dp">
+                <TextView
+                    android:id="@+id/details"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Bank Details"
+                    android:fontFamily="sans-serif-thin"
+                    android:textStyle="bold"
+                    android:textSize="18sp"
+                    android:textColor="@color/black"
+                    android:layout_marginStart="8dp"/>
+
+                <TextView
+                    android:id="@+id/accountnumber"
+                    android:layout_below="@+id/details"
+                    android:layout_marginTop="4dp"
+                    android:textSize="14sp"
+                    android:fontFamily="sans-serif-light"
+                    android:gravity="start"
+                    android:text=". Account Number :"
+                    android:layout_marginStart="8dp"
+                    android:textColor="@color/black"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:id="@+id/ifscnumber"
+                    android:layout_below="@id/accountnumber"
+                    android:layout_marginTop="4dp"
+                    android:textSize="14sp"
+                    android:fontFamily="sans-serif-light"
+                    android:text=". IFSC Number :"
+                    android:gravity="start"
+                    android:layout_marginStart="8dp"
+                    android:textColor="@color/black"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:id="@+id/bankname"
+                    android:layout_below="@id/ifscnumber"
+                    android:layout_marginTop="4dp"
+                    android:fontFamily="sans-serif-light"
+                    android:layout_marginStart="8dp"
+                    android:textColor="@color/black"
+                   android:gravity="start"
+                    android:text=". Bank name :"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </RelativeLayout>
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/bankdetails"
+            android:layout_marginTop="4dp">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/Complaint"
+                    android:gravity="start"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginStart="8dp"
+                    android:fontFamily="sans-serif-thin"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Complaints"/>
+
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/commentsrecycler"
+                        android:layout_below="@id/Complaint"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"/>
+
+                </RelativeLayout>
+
+        </android.support.v7.widget.CardView>
+
+    </RelativeLayout>
+
+</ScrollView>
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|bottom"
+        android:src="@drawable/baseline_add_white_24"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_margin="22dp"
+        />
+</RelativeLayout>
