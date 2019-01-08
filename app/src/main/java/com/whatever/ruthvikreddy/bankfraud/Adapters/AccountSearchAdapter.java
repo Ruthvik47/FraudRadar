@@ -48,10 +48,7 @@ public class AccountSearchAdapter extends RecyclerView.Adapter<AccountSearchAdap
             public void onClick(View v) {
                 Intent intent  = new Intent(context,DisplayBankDetails.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-                intent.putExtra("fraudname",details.getFraudname());
                 intent.putExtra("accountnumber",details.getAccountnumber());
-                intent.putExtra("ifscnumber",details.getIfscnumber());
-                intent.putExtra("bankname",details.getBankname());
                 context.startActivity(intent);
 
             }

@@ -22,6 +22,7 @@ import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
+import com.whatever.ruthvikreddy.bankfraud.Model.sharedpreference;
 import com.whatever.ruthvikreddy.bankfraud.R;
 
 
@@ -38,6 +39,7 @@ public class LoginActivity extends AppCompatActivity {
     //firebase
     private PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks;
     private PhoneAuthProvider.ForceResendingToken mResendToken;
+    private sharedpreference sharedpreference;
     private FirebaseAuth mAuth;
     private String mVerificationId;
     private String number;
@@ -46,6 +48,8 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        sharedpreference = new sharedpreference(this);
 
         enternum = (TextView) findViewById(R.id.enternum);
         tapnext = (TextView) findViewById(R.id.verifytext);
@@ -140,6 +144,7 @@ public class LoginActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
+                            sharedpreference.writeUserphonenumber(number);
 
                             FirebaseUser user = task.getResult().getUser();
                             Intent intent = new Intent(LoginActivity.this,ProfileActivity.class);

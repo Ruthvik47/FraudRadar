@@ -5,6 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/colorPrimary"
     app:titleTextColor="#fff"
+    android:theme="@style/ToolbarColoredBackArrow"
     android:elevation="1dp">
 
 </android.support.v7.widget.Toolbar>

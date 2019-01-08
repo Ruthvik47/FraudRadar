@@ -24,17 +24,21 @@
         </activity>
         <activity android:name=".Activities.LoginActivity" />
         <activity android:name=".Activities.ProfileActivity" />
-        <activity android:name=".Activities.AddPhoneDetails"
-            android:parentActivityName=".Activities.MainActivity"/>
-        <activity android:name=".Activities.AddAccountDetails"
-            android:parentActivityName=".Activities.MainActivity"/>
+        <activity
+            android:name=".Activities.AddPhoneDetails"
+            android:parentActivityName=".Activities.MainActivity" />
+        <activity
+            android:name=".Activities.AddAccountDetails"
+            android:parentActivityName=".Activities.MainActivity" />
         <activity
             android:name=".Activities.DisplayBankDetails"
             android:parentActivityName=".Activities.MainActivity" />
         <activity
             android:name=".Activities.Fraudbankdetailscomments"
             android:parentActivityName=".Activities.DisplayBankDetails" />
-        <activity android:name=".Activities.DisplayPhonedetails"></activity>
+        <activity android:name=".Activities.DisplayPhonedetails" />
+        <activity android:name=".Activities.UserProfileActivity"
+            android:parentActivityName=".Activities.MainActivity"></activity>
     </application>
 
 </manifest>

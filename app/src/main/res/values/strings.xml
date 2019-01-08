@@ -6,6 +6,7 @@
 
     <string name="shared_pref">com.whatever.ruthvikreddy.bankfraud_shared_pref</string>
     <string name="username">com.whatever.ruthvikreddy.bankfraud_username</string>
+    <string name="phonenumber">com.whatever.ruthvikreddy.bankfraud_phonenumber</string>
 
     <string name="Select_Wallet">Select Wallet</string>
 

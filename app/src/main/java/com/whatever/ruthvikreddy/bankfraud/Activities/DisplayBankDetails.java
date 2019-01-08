@@ -1,6 +1,7 @@
 package com.whatever.ruthvikreddy.bankfraud.Activities;
 
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,16 +11,22 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentChange;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.whatever.ruthvikreddy.bankfraud.Adapters.BankCommentsAdapter;
 import com.whatever.ruthvikreddy.bankfraud.Model.Bankcomments;
+import com.whatever.ruthvikreddy.bankfraud.Model.Bankdetails;
 import com.whatever.ruthvikreddy.bankfraud.Model.sharedpreference;
 import com.whatever.ruthvikreddy.bankfraud.R;
 
@@ -37,6 +44,7 @@ public class DisplayBankDetails extends AppCompatActivity {
     private sharedpreference sharedpreference;
     private FloatingActionButton fab;
     private ImageView back;
+    private ProgressBar progressBar;
 
     private String accountno;
 
@@ -56,12 +64,17 @@ public class DisplayBankDetails extends AppCompatActivity {
         }
         sharedpreference = new sharedpreference(this);
 
+        accountno = getIntent().getStringExtra("accountnumber");
+        Log.d(TAG,accountno);
+
 
 
         firestore = FirebaseFirestore.getInstance();
         mAuth = FirebaseAuth.getInstance();
         userid = mAuth.getCurrentUser().getUid();
 
+        progressBar = (ProgressBar)findViewById(R.id.progressbar);
+        progressBar.setVisibility(View.VISIBLE);
         fraudname = (TextView)findViewById(R.id.fraudname);
         acno = (TextView)findViewById(R.id.accountnumber);
         ifsc = (TextView)findViewById(R.id.ifscnumber);
@@ -78,17 +91,9 @@ public class DisplayBankDetails extends AppCompatActivity {
         recyclerView.setLayoutManager(linearLayoutManager);
 
         getComments();
+        displayFraudDetails();
 
 
-        if(getIntent().getExtras()!=null){
-            String fraud = getIntent().getStringExtra("fraudname");
-            String capFraud = fraud.substring(0,1).toUpperCase() + fraud.substring(1).toLowerCase();
-            fraudname.setText(capFraud);
-            acno.setText(".Account number : "+accountno);
-            ifsc.setText(".IFSC number : "+getIntent().getStringExtra("ifscnumber"));
-            bankname.setText(".Bank name :"+getIntent().getStringExtra("bankname"));
-
-        }
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -114,6 +119,36 @@ public class DisplayBankDetails extends AppCompatActivity {
 
 
 
+    }
+
+    private void displayFraudDetails() {
+        firestore.document("AccountSearch/"+accountno).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                if(documentSnapshot!=null){
+                    Bankdetails bankdetails = documentSnapshot.toObject(Bankdetails.class);
+
+                    String fraud = null;
+                    if (bankdetails != null) {
+                        progressBar.setVisibility(View.GONE);
+                        fraud = bankdetails.getFraudname();
+                        String capFraud = fraud.substring(0,1).toUpperCase() + fraud.substring(1).toLowerCase();
+                        fraudname.setText(capFraud);
+                        acno.setText(".Account number : "+accountno);
+                        ifsc.setText(".IFSC number : "+bankdetails.getIfscnumber());
+                        bankname.setText(".Bank name :"+bankdetails.getBankname());
+                    }
+
+
+                }
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                progressBar.setVisibility(View.GONE);
+                Toast.makeText(DisplayBankDetails.this,e.getMessage(),Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
 

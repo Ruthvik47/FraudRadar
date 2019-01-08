@@ -15,9 +15,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.Timestamp;
@@ -48,6 +51,8 @@ public class AddAccountDetails extends AppCompatActivity {
     private Dialog nodetails;
     private TextView data;
     private Button viewdetails;
+    private ProgressBar progressBar;
+    private MenuItem submit;
 
     private EditText fraudname,bank,accountnumber,ifsc,transactionid,description;
     private CheckBox anonymous;
@@ -71,6 +76,7 @@ public class AddAccountDetails extends AppCompatActivity {
         userid = mAuth.getCurrentUser().getUid();
         sharedpreference = new sharedpreference(this);
 
+        progressBar = (ProgressBar)findViewById(R.id.progressbar);
         fraudname = (EditText)findViewById(R.id.fraudname);
         bank = (EditText)findViewById(R.id.bankname);
         accountnumber = (EditText)findViewById(R.id.accountnumber);
@@ -88,6 +94,7 @@ public class AddAccountDetails extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
 
         getMenuInflater().inflate(R.menu.mainmenu,menu);
+        submit = menu.findItem(R.id.navigation_submit);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -96,6 +103,8 @@ public class AddAccountDetails extends AppCompatActivity {
 
         switch ((item.getItemId())) {
             case R.id.navigation_submit:
+                progressBar.setVisibility(View.VISIBLE);
+                submit.setEnabled(false);
                 String fraud = fraudname.getText().toString();
                 String bankname = bank.getText().toString();
                 final String accountno = accountnumber.getText().toString();
@@ -103,7 +112,8 @@ public class AddAccountDetails extends AppCompatActivity {
                 String transaction = transactionid.getText().toString();
                 final String des = description.getText().toString();
                 if(fraud.isEmpty() || bankname.isEmpty() || accountno.isEmpty() || transaction.isEmpty() || des.isEmpty()|| ifscnum.isEmpty()){
-
+                    progressBar.setVisibility(View.GONE);
+                    Toast.makeText(AddAccountDetails.this,"Please fill the flieds",Toast.LENGTH_LONG).show();
                 }else{
                     final Bankdetails bankdetails = new Bankdetails(fraud,bankname,accountno,ifscnum);
                     firestore.collection("AccountSearch").document(accountno).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -122,10 +132,28 @@ public class AddAccountDetails extends AppCompatActivity {
                                     public void onSuccess(Void aVoid) {
                                         Bankcomments bankcomments = new Bankcomments(des,checkbox?"Anonymous":sharedpreference.getUsername(),Timestamp.now());
                                         firestore.collection("AccountSearch").document(accountno).collection("Comments")
-                                        .add(bankcomments);
+                                        .add(bankcomments).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                            @Override
+                                            public void onSuccess(DocumentReference documentReference) {
+                                                Intent intent  = new Intent(AddAccountDetails.this,DisplayBankDetails.class);
+                                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                                intent.putExtra("accountnumber",accountno);
+                                                startActivity(intent);
+                                                finish();
+                                            }
+                                        });
+                                    }
+                                }).addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        progressBar.setVisibility(View.GONE);
+                                        submit.setEnabled(true);
+                                        Toast.makeText(AddAccountDetails.this,e.getMessage(),Toast.LENGTH_LONG).show();
                                     }
                                 });
                             }else{
+                                progressBar.setVisibility(View.GONE);
+                                submit.setEnabled(true);
                                 Log.d(TAG,"2 already their is a record");
                                 nodetails.setContentView(R.layout.viewdatalayout);
                                 data = (TextView)nodetails.findViewById(R.id.nodata);
@@ -137,10 +165,7 @@ public class AddAccountDetails extends AppCompatActivity {
                                         nodetails.dismiss();
                                         Intent intent = new Intent(AddAccountDetails.this,DisplayBankDetails.class);
                                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                        intent.putExtra("fraudname",details.getFraudname());
-                                        intent.putExtra("accoutnumber",details.getAccountnumber());
-                                        intent.putExtra("ifscnumber",details.getIfscnumber());
-                                        intent.putExtra("bankname",details.getBankname());
+                                        intent.putExtra("accountnumber",details.getAccountnumber());
                                         startActivity(intent);
 
                                     }

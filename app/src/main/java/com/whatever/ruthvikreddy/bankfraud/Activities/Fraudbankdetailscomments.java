@@ -11,8 +11,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.Timestamp;
@@ -37,6 +39,8 @@ public class Fraudbankdetailscomments extends AppCompatActivity {
     private sharedpreference sharedpreference;
     private boolean checkbox =false;
     private String accountnumber;
+    private ProgressBar progressBar;
+    private MenuItem submit;
 
 
 
@@ -55,6 +59,7 @@ public class Fraudbankdetailscomments extends AppCompatActivity {
         accountnumber = getIntent().getStringExtra("accountnumber");
 
         message = (EditText)findViewById(R.id.comment);
+        progressBar = (ProgressBar)findViewById(R.id.progressbar);
 
         firestore= FirebaseFirestore.getInstance();
         mAuth = FirebaseAuth.getInstance();
@@ -69,6 +74,7 @@ public class Fraudbankdetailscomments extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
 
         getMenuInflater().inflate(R.menu.mainmenu,menu);
+        submit = menu.findItem(R.id.navigation_submit);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -77,14 +83,27 @@ public class Fraudbankdetailscomments extends AppCompatActivity {
 
         switch ((item.getItemId())){
             case R.id.navigation_submit:
-            String msg = message.getText().toString();
+                progressBar.setVisibility(View.VISIBLE);
+                submit.setEnabled(false);
+                String msg = message.getText().toString();
 
             if(!msg.isEmpty()){
                 Bankcomments bankcomments = new Bankcomments(msg, checkbox ? "Anonymously" : sharedpreference.getUsername(),Timestamp.now());
-                firestore.collection("AccountSearch").document(accountnumber).collection("Comments").add(bankcomments).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                firestore.collection("AccountSearch").document(accountnumber).collection("Comments").add(bankcomments).
+                        addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override
                     public void onSuccess(DocumentReference documentReference) {
                         Log.d(TAG,"comment added sucessfully");
+                        Intent intent = new Intent(Fraudbankdetailscomments.this,DisplayBankDetails.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP  | Intent.FLAG_ACTIVITY_NEW_TASK);
+                        intent.putExtra("accountnumber", accountnumber);
+                        startActivity(intent);
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        submit.setEnabled(true);
+                        progressBar.setVisibility(View.GONE);
                     }
                 });
             }
@@ -114,9 +133,6 @@ public class Fraudbankdetailscomments extends AppCompatActivity {
     public void onBackPressed() {
         Intent intent = new Intent(Fraudbankdetailscomments.this,DisplayBankDetails.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP  | Intent.FLAG_ACTIVITY_NEW_TASK);
-        intent.putExtra("fraudname",getIntent().getStringExtra("fraudname"));
-        intent.putExtra("ifscnumber",getIntent().getStringExtra("ifscnumber"));
-        intent.putExtra("bankname",getIntent().getStringExtra("bankname"));
         intent.putExtra("accountnumber", accountnumber);
         startActivity(intent);
     }

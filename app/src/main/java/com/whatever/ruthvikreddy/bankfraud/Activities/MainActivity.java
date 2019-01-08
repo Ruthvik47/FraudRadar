@@ -8,6 +8,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.Button;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -85,6 +87,7 @@ public class MainActivity extends AppCompatActivity {
                             if (profileDetails != null) {
                                 String username = profileDetails.getFirstname() + " " + profileDetails.getLastname();
                                 sharedpreference.writeUsername(username);
+                                sharedpreference.writeUserphonenumber(profileDetails.getPhonenumber());
                             }
                         }
 
@@ -92,5 +95,25 @@ public class MainActivity extends AppCompatActivity {
                 });
             }
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        getMenuInflater().inflate(R.menu.profilemenu,menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()){
+            case R.id.navigation_profile:
+                Intent intent = new Intent(MainActivity.this,UserProfileActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

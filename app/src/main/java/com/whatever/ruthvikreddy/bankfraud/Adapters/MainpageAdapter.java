@@ -48,8 +48,6 @@ public class MainpageAdapter extends FragmentPagerAdapter {
 
         switch (position){
             case 0:
-
-
                 return "Phone Search";
             case 1:
                 return "Account number Search";

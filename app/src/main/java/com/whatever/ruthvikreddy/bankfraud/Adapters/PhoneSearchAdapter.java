@@ -52,6 +52,7 @@ public class PhoneSearchAdapter extends RecyclerView.Adapter<PhoneSearchAdapter.
                 intent.putExtra("transaction",details.getTransactionid());
                 intent.putExtra("phonenumber",details.getPhonenumber());
                 intent.putExtra("complaint",details.getDescription());
+                intent.putExtra("postedby",details.getAnonymous());
                 context.startActivity(intent);
 
             }

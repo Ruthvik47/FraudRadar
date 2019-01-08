@@ -5,15 +5,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.whatever.ruthvikreddy.bankfraud.R;
 
 public class DisplayPhonedetails extends AppCompatActivity {
-    private String transactionid,walletname,fraudname,phonenumber,complaint;
+    private String transactionid,walletname,fraudname,phonenumber,complaint,postedby;
     private TextView name,id,wallet,number,username,comment;
     private ImageView back;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,7 +24,8 @@ public class DisplayPhonedetails extends AppCompatActivity {
         transactionid = getIntent().getStringExtra("transaction");
         phonenumber = getIntent().getStringExtra("phonenumber");
         complaint = getIntent().getStringExtra("complaint");
-        fraudname = getIntent().getStringExtra("fraudname");
+        postedby = getIntent().getStringExtra("postedby");
+
 
         name = (TextView)findViewById(R.id.fraudname);
         id = (TextView)findViewById(R.id.transactionid);
@@ -39,6 +40,7 @@ public class DisplayPhonedetails extends AppCompatActivity {
         wallet.setText(".Wallet name : "+walletname);
         number.setText(".Phone number : "+phonenumber);
         comment.setText(complaint);
+        username.setText(postedby);
 
         back.setOnClickListener(new View.OnClickListener() {
             @Override

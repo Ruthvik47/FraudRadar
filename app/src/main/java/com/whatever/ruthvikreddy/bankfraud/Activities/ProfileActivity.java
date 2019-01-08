@@ -14,9 +14,12 @@ import android.widget.Button;
 import android.widget.EdgeEffect;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -24,6 +27,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.whatever.ruthvikreddy.bankfraud.Model.ProfileDetails;
+import com.whatever.ruthvikreddy.bankfraud.Model.sharedpreference;
 import com.whatever.ruthvikreddy.bankfraud.R;
 
 import java.io.ByteArrayOutputStream;
@@ -37,6 +41,8 @@ public class ProfileActivity extends AppCompatActivity {
     private EditText firstname,lastname,email;
     private Button send;
     private Bitmap bitmap;
+    private ProgressBar progressBar;
+    private sharedpreference sharedpreference;
 
     private StorageReference profileUpload;
     private FirebaseFirestore firestore;
@@ -49,11 +55,14 @@ public class ProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
+        sharedpreference = new sharedpreference(this);
+
         profileimage = (ImageView)findViewById(R.id.profile_image);
         firstname = (EditText)findViewById(R.id.firstname);
         lastname = (EditText)findViewById(R.id.lastname);
         email = (EditText)findViewById(R.id.email);
         send = (Button)findViewById(R.id.send);
+        progressBar = (ProgressBar)findViewById(R.id.progressbar);
 
         profileUpload =FirebaseStorage.getInstance().getReference();
         mAuth = FirebaseAuth.getInstance();
@@ -80,6 +89,8 @@ public class ProfileActivity extends AppCompatActivity {
         send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                progressBar.setVisibility(View.VISIBLE);
+                send.setVisibility(View.GONE);
                 first = firstname.getText().toString();
                 last = lastname.getText().toString();
                 mail = email.getText().toString();
@@ -121,6 +132,13 @@ public class ProfileActivity extends AppCompatActivity {
                                 });
                             }
                         }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            progressBar.setVisibility(View.GONE);
+                            send.setVisibility(View.VISIBLE);
+                            Toast.makeText(ProfileActivity.this,e.getMessage(),Toast.LENGTH_LONG).show();
+                        }
                     });
                 }
 
@@ -131,7 +149,7 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     private void performLogin(String noimage) {
-        ProfileDetails profileActivity = new ProfileDetails(first,last,mail,noimage);
+        ProfileDetails profileActivity = new ProfileDetails(first,last,mail,noimage,sharedpreference.getUserphonenumber());
         firestore.collection("Users").document(userid).set(profileActivity).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
@@ -140,6 +158,13 @@ public class ProfileActivity extends AppCompatActivity {
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
                 finish();
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                progressBar.setVisibility(View.GONE);
+                send.setVisibility(View.VISIBLE);
+                Toast.makeText(ProfileActivity.this,e.getMessage(),Toast.LENGTH_LONG).show();
             }
         });
     }

@@ -5,15 +5,17 @@ public class ProfileDetails {
     private String lastname;
     private String email;
     private String photourl;
+    private String phonenumber;
 
     public ProfileDetails() {
     }
 
-    public ProfileDetails(String firstname, String lastname, String email, String photourl) {
+    public ProfileDetails(String firstname, String lastname, String email, String photourl,String phonenumber) {
         this.firstname = firstname;
         this.lastname = lastname;
         this.email = email;
         this.photourl = photourl;
+        this.phonenumber = phonenumber;
     }
 
     public String getFirstname() {
@@ -46,5 +48,13 @@ public class ProfileDetails {
 
     public void setPhotourl(String photourl) {
         this.photourl = photourl;
+    }
+
+    public String getPhonenumber() {
+        return phonenumber;
+    }
+
+    public void setPhonenumber(String phonenumber) {
+        this.phonenumber = phonenumber;
     }
 }

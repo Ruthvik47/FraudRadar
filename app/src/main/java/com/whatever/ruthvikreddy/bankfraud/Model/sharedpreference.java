@@ -33,4 +33,22 @@ public class sharedpreference {
     /*
 
      */
+       /*
+   stores user name
+     */
+
+    public void writeUserphonenumber(String phonenumber){
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(context.getResources().getString(R.string.phonenumber),phonenumber);
+        editor.apply();
+    }
+    public  String getUserphonenumber(){
+        String phonenumber = "";
+        phonenumber = sharedPreferences.getString(context.getResources().getString(R.string.phonenumber),phonenumber);
+        return phonenumber;
+    }
+    /* --*/
+    /*
+
+     */
 }

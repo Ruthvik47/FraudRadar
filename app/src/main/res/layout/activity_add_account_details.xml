@@ -9,6 +9,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+        <ProgressBar
+            android:id="@+id/progressbar"
+            android:visibility="gone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"/>
+
     <include
         android:id="@+id/toolbar"
         layout="@layout/tool_bar"/>
@@ -28,7 +35,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1.5"
             android:layout_gravity="start|center"
-            android:src="@drawable/ic_person"/>
+            android:src="@drawable/ic_person_profile"/>
         <EditText
             android:id="@+id/fraudname"
             android:layout_width="0dp"
@@ -54,7 +61,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1.5"
             android:layout_gravity="center"
-            android:src="@drawable/ic_person"/>
+            android:src="@drawable/ic_account_balance_profile"/>
         <EditText
             android:id="@+id/bankname"
             android:layout_width="0dp"
@@ -79,7 +86,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1.5"
             android:layout_gravity="center"
-            android:src="@drawable/ic_person"/>
+            />
         <EditText
             android:id="@+id/accountnumber"
             android:layout_width="0dp"

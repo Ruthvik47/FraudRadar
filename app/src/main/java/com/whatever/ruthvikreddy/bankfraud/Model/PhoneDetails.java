@@ -7,12 +7,12 @@ public class PhoneDetails {
     private String phonenumber;
     private String transactionid;
     private String description;
-    private boolean anonymous;
+    private String anonymous;
 
     public PhoneDetails() {
     }
 
-    public PhoneDetails(String fraudname, String walletname, String phonenumber, String transactionid, String description, boolean anonymous) {
+    public PhoneDetails(String fraudname, String walletname, String phonenumber, String transactionid, String description, String anonymous) {
 
         this.fraudname = fraudname;
         this.walletname = walletname;
@@ -62,11 +62,11 @@ public class PhoneDetails {
         this.description = description;
     }
 
-    public boolean isAnonymous() {
+    public String getAnonymous() {
         return anonymous;
     }
 
-    public void setAnonymous(boolean anonymous) {
+    public void setAnonymous(String anonymous) {
         this.anonymous = anonymous;
     }
 }
